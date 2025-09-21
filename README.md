@@ -40,7 +40,7 @@ Watch the magic: [YouTube Link - 1:45 min demo]
 ## 🚀 Quick Start
 ```bash
 # Clone the repo
-git clone https://github.com/shubhangi-kumari/MatrixResumeForge.git
+git clone https://github.com/shubhangi-kumari/genai-resume-matrix.git
 
 # Install dependencies
 pip install -r requirements.txt
