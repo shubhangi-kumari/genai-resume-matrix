@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MatrixResumeForge - Professional Resume Analyzer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        /* Body & Font */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1c1c1c;
+            color: #f0f0f0;
+        }
+
+        /* Subtle Matrix Background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 700px;
+            margin: 80px auto;
+            padding: 40px;
+            background: #2a2a2a;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffa500;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="file"], input[type="text"], select {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #1c1c1c;
+            color: #f0f0f0;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 14px;
+            border-radius: 6px;
+            border: none;
+            background-color: #ffa500;
+            color: #1c1c1c;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ffb733;
+        }
+
+        /* Footer / Notes */
+        .note {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-bg" class="matrix-bg"></canvas>
+
+    <div class="container">
+        <h1>🚀 MatrixResumeForge: Upload & Analyze Your Resume</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Analyze & Forge</button>
+        </form>
+        <p class="note">Your resume is securely processed. Insights include skills, projects, keywords, and improvement suggestions.</p>
+    </div>
+
+    <script>
+        // Subtle 3D Matrix Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('matrix-bg'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 5000; i++) {
+            vertices.push(Math.random() * 200 - 100, Math.random() * 200 - 100, Math.random() * 200 - 100);
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const material = new THREE.PointsMaterial({ color: 0xffa500, size: 0.5, transparent: true, opacity: 0.4 });
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            points.rotation.x += 0.0008;
+            points.rotation.y += 0.0015;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
